@@ -1,0 +1,7 @@
+{
+  "name": "wer-hat-die-maschiene-gemacht-frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
