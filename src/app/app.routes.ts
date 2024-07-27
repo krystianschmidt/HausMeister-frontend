@@ -1,16 +1,16 @@
-import { Routes } from '@angular/router';
+import {mapToCanActivate, Routes} from '@angular/router';
+import {AuthGuard} from "./guards/auth.guard";
+import {LoginGuard} from "./guards/login.guard";
 
 export const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.routes').then((m) => m.routes),
+    loadChildren: () => import('./tabs/tabs.routes').then(m => m.routes),
+    canActivate: mapToCanActivate([AuthGuard])
   },
   {
-    path: 'login',
-    loadComponent: () => import('./authentication/login/login.page').then( m => m.LoginPage)
-  },
-  {
-    path: 'register',
-    loadComponent: () => import('./authentication/register/register.page').then( m => m.RegisterPage)
-  },
+    path: 'auth',
+    loadChildren: () => import('./authentication/authentication.module').then( m => m.AuthenticationModule),
+    canActivate: mapToCanActivate([LoginGuard])
+  }
 ];

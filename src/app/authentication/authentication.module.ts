@@ -10,8 +10,9 @@ import {LoginPage} from "./login/login.page";
 
 
 @NgModule({
-  declarations: [RegisterPage, LoginPage],
   imports: [
+    RegisterPage,
+    LoginPage,
     AuthRoutingModule,
     IonicModule,
     CommonModule,
