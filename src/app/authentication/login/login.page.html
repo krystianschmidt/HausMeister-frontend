@@ -1,22 +1,37 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-title class="ion-text-center">Wer hat die Maschine Gemacht</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <form (ngSubmit)="login()">
-      <ion-item>
-        <ion-label position="floating">Username</ion-label>
-        <ion-input type="text" [(ngModel)]="credentials.username" name="username" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <ion-input type="password" [(ngModel)]="credentials.password" name="password" required></ion-input>
-      </ion-item>
-      <ion-button expand="full" type="submit">Login</ion-button>
-  </form>
-  <ion-item lines="none">
-    <ion-button expand="full" (click)="navigateToRegister()">Register</ion-button>
-  </ion-item>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="login-content">
+    <div class="auth-container">
+      <h2>Welcome Back</h2>
+      <p>Login to your account</p>
+
+      <form (ngSubmit)="login()">
+        <div [formGroup]="formGroup">
+          <ion-item lines="none" class="ion-margin-bottom">
+            <ion-input labelPlacement="floating" type="text" formControlName="username" maxlength="20" required="true">
+              <div slot="label">Username<ion-text color="danger"></ion-text></div>
+            </ion-input>
+          </ion-item>
+          <app-input-pwd class="" type="enter" (value)="credentials.password = $event" #pwd></app-input-pwd>
+
+          <ion-label  color="danger" class="danger-label" *ngIf="wrongCredentials">Falsche Anmeldedaten</ion-label>
+
+          <ion-button expand="block" type="submit" class="shadow"
+                      [disabled]="this.formGroup.controls['username'].invalid || pwd.formControl.invalid">
+            Login
+          </ion-button>
+        </div>
+      </form>
+
+      <div class="register-section">
+        <p>Don't have an account?</p>
+        <ion-button (click)="navigateToRegister()" class="register-button">Register</ion-button>
+      </div>
+    </div>
+  </div>
 </ion-content>

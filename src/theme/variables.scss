@@ -1,2 +1,141 @@
-// For information on how to create your own theme, please see:
-// http://ionicframework.com/docs/theming/
+// Variables.scss
+// Farbpalette
+$color-black: #1a1a1a;
+$color-dark-gray: #2d2d2d;
+$color-light-gray: #f5f5f5;
+$color-white: #ffffff;
+
+$color-gold: #c9a635;
+$color-gold-dark: #a38328;
+$color-gold-light: #e5c76b;
+
+// Farben direkt in CSS-Variablen umwandeln
+:root {
+  --ion-background-color: #{$color-light-gray}; // SCSS-Wert zu CSS-Variable
+  --ion-text-color: #{$color-black};
+  --ion-color-primary: #{$color-gold};
+  --ion-color-primary-contrast: #{$color-black};
+  --ion-color-secondary: #{$color-gold-dark};
+  --ion-color-secondary-contrast: #{$color-white};
+}
+
+// Buttons
+ion-button {
+  --background: var(--ion-color-primary);
+  --color: var(--ion-color-primary-contrast);
+  --border-radius: 8px;
+  --box-shadow: none;
+
+  &:hover {
+    --background: #{$color-gold-dark}; // Hier SCSS-Variable direkt
+    --color: #{$color-white};
+  }
+
+  &.button-clear {
+    --background: transparent;
+    --color: #{$color-gold};
+  }
+
+  &.button-outline {
+    --background: transparent;
+    --border-color: #{$color-gold};
+    --color: #{$color-gold};
+
+    &:hover {
+      --background: #{$color-gold-light};
+      --color: #{$color-black};
+    }
+  }
+}
+
+// Text und Überschriften
+ion-text {
+  color: var(--ion-text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--ion-text-color);
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: var(black);
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(black);
+}
+
+h3 {
+  font-size: 1.75rem;
+  color: var(--ion-color-secondary);
+}
+
+h4, h5, h6 {
+  font-size: 1.5rem;
+  color: var(--ion-text-color);
+}
+
+// Karten und Container
+ion-card {
+  --background: var(--ion-background-color);
+  --box-shadow: none;
+  --border-radius: 10px;
+  --border: 1px solid #{$color-gold-light};
+  color: var(--ion-text-color);
+}
+
+ion-card-header {
+  color: var(--ion-color-primary);
+}
+
+ion-card-content {
+  color: var(--ion-text-color);
+}
+
+// Eingabefelder
+ion-input {
+  --background: var(--ion-background-color);
+  --color: var(--ion-text-color);
+  --placeholder-color: #{$color-dark-gray};
+}
+
+ion-item {
+  --background: var(--ion-background-color);
+  --color: var(--ion-text-color);
+  --border-color: #{$color-gold-light};
+  border-radius: 8px;
+}
+
+// Footer und Header
+ion-header, ion-footer {
+  --background: var(--ion-background-color);
+  --color: var(--ion-text-color);
+}
+
+ion-toolbar {
+  --background: black;
+  --color: var(--ion-color-secondary-contrast);
+}
+
+// Links
+a {
+  color: var(--ion-color-primary);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--ion-color-secondary);
+    text-decoration: underline;
+  }
+}
+
+// Schatten
+.shadow {
+  --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.danger-label{
+  font-size: 0.8rem;
+}

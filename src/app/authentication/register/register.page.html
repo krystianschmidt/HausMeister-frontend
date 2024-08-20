@@ -1,22 +1,48 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>Register</ion-title>
+    <ion-title class="ion-text-center">Wer hat die Maschine Gemacht</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <form (ngSubmit)="register()">
-    <ion-item>
-      <ion-label position="floating">Username</ion-label>
-      <ion-input type="text" [(ngModel)]="user.username" name="username" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="user.password" name="password" required></ion-input>
-    </ion-item>
-    <ion-button expand="full" type="submit">Register</ion-button>
-  </form>
-  <ion-item lines="none">
-    <ion-button expand="full" (click)="navigateToLogin()">Login</ion-button>
-  </ion-item>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="register-content">
+    <div class="auth-container">
+      <h2>Register</h2>
+      <p>Register for an account</p>
+
+      <form (ngSubmit)="register()">
+        <div [formGroup]="formGroup">
+
+          <ion-item lines="none" class="ion-margin-bottom">
+            <ion-input labelPlacement="floating" type="text" formControlName="name" required="true">
+              <div slot="label">Name<ion-text color="danger"></ion-text></div>
+            </ion-input>
+            <ion-label *ngIf="submitAttempt && formGroup.controls['name'].invalid">Darf nicht leer sein!</ion-label>
+          </ion-item>
+
+          <ion-item lines="none" class="ion-margin-bottom">
+            <ion-input labelPlacement="floating" type="text" formControlName="username" required="true">
+              <div slot="label">New Username<ion-text color="danger"></ion-text></div>
+            </ion-input>
+          </ion-item>
+
+          <ion-label color="danger" class="danger-label" *ngIf="submitAttempt && formGroup.controls['username'].hasError('required')">Darf nicht leer sein!</ion-label>
+          <ion-label color="danger" class="danger-label" *ngIf="!userAvailable">Username bereits vergeben!</ion-label>
+          <ion-label color="danger" class="danger-label" *ngIf="formGroup.controls['username'].hasError('pattern')">Erlaubte Zeichen: a-z 0-9 . - _</ion-label>
+          <app-input-pwd class="d-inline-grid" type="new" (value)="user.password = $event" [securePasswordRegEx]="[pwdRegex]" #newPwd></app-input-pwd>
+          <app-input-pwd class="d-inline-grid" type="repeat" [repeatedPwd]="newPwd.formControl.value" #repeatPwd></app-input-pwd>
+
+
+          <ion-button expand="block" type="submit" class="shadow"
+                      [disabled]="isInvalid() || repeatPwd.formControl.invalid || newPwd.formControl.invalid">
+            Register</ion-button>
+        </div>
+      </form>
+
+      <div class="login-section">
+        <p>Already have an account?</p>
+        <ion-button (click)="navigateToLogin()" class="login-button">Login</ion-button>
+      </div>
+    </div>
+  </div>
 </ion-content>

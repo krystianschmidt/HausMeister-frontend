@@ -1,0 +1,29 @@
+.login-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  .auth-container{
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); // Slight shadow for depth
+    padding: 24px;
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .register-section {
+    margin-top: 20px;
+
+    p {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .register-button {
+      --background: transparent; // Transparent background for register button
+      --box-shadow: none; // No shadow for a flatter appearance
+    }
+  }
+}
+

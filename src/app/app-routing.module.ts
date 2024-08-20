@@ -1,8 +1,9 @@
-import {mapToCanActivate, Routes} from '@angular/router';
+import {mapToCanActivate, PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from "./guards/auth.guard";
 import {LoginGuard} from "./guards/login.guard";
+import {NgModule} from "@angular/core";
 
-export const routes: Routes = [
+const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.routes').then(m => m.routes),
@@ -14,3 +15,11 @@ export const routes: Routes = [
     canActivate: mapToCanActivate([LoginGuard])
   }
 ];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}
