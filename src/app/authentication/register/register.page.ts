@@ -73,6 +73,6 @@ export class RegisterPage  {
   }
 
   navigateToLogin() {
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/']);
   }
 }
