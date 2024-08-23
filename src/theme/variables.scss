@@ -109,6 +109,10 @@ ion-item {
   border-radius: 8px;
 }
 
+ion-icon {
+  color: var(--ion-color-primary);
+}
+
 // Footer und Header
 ion-header, ion-footer {
   --background: var(--ion-background-color);

@@ -32,14 +32,8 @@ export abstract class BaseCommunicationService {
     this.checkSubscriptions(subscriptionURL);
     return new Promise<TResult>((resolve, reject) => {
       let subs: Subscription = this.http.get<TResult>(this.backendUrl + url, {params: httpReqParam, headers: (httpHeaders || BaseCommunicationService.prepareRequestHeaders())})
-        .pipe(takeUntil(this.callReplay))
         .subscribe(response => {
-            if (!allowNullResult && !response) {
-              reject();
-              return;
-            }
-
-            resolve(response);
+          resolve(response);
           }, error => {
             reject(error);
           }

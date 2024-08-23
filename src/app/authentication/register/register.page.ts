@@ -1,18 +1,17 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../../services/authentication/authentication.service";
 import {RegisterUser} from "../../models/registerUser";
-import {debounceTime, distinctUntilChanged, map, startWith, switchMap, tap} from "rxjs";
-import {AuthenticationModule} from "../authentication.module";
+import {debounceTime, distinctUntilChanged, filter, map, startWith, switchMap, tap} from "rxjs";
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
-export class RegisterPage  {
+export class RegisterPage implements OnInit {
   isBusy: boolean = false;
   userAvailable: boolean = true;
   user: RegisterUser = {
@@ -48,11 +47,12 @@ export class RegisterPage  {
       tap(username => this.user.username = username),
       tap(username => this.formGroup.controls['username'].setValue(username, {emitEvent: false})),
       tap(u => console.log(u)),
+      filter(username => username.length > 0),
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((username) =>
         this.authService.isUsernameAvailable(username)
-          .then(available => this.userAvailable = !!available)
+          .then(available => {console.log(available); this.userAvailable = !!available})
           .catch(err => console.log(err))
       )
     ).subscribe(a => console.log(a));
